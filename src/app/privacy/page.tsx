@@ -11,19 +11,16 @@ export default function PrivacyPolicy() {
       {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-accent-cyan/[0.02] blur-[120px]" />
 
-      <div className="relative z-10 mx-auto max-w-3xl px-6">
+      <div className="relative z-10 mx-auto max-w-[720px] px-8">
         {/* Header */}
         <div className="mb-14">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="h-px w-8 bg-accent-cyan/60" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent-cyan">
-              Legal
-            </span>
-          </div>
-          <h1 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+          <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.15em] text-accent-cyan">
+            Legal
+          </p>
+          <h1 className="text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-[-0.01em]">
             Privacy Policy
           </h1>
-          <p className="mt-4 font-mono text-sm text-text-dim">
+          <p className="mt-4 text-[13px] text-text-dim">
             Last updated: February 2026
           </p>
         </div>

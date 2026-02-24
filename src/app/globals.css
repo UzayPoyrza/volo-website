@@ -10,12 +10,10 @@
   --panel: #0a1020;
   --surface: #0f1a2e;
   --border: #1a2d4a;
-  --text-secondary: #7e95b4;
+  --text-secondary: #8b9dc0;
   --text-dim: #3d5070;
   --card-bg: #0b1222;
   --card-border: #152240;
-  --glow-cyan: rgba(0, 212, 255, 0.15);
-  --glow-green: rgba(34, 197, 94, 0.12);
 }
 
 @theme inline {
@@ -32,8 +30,7 @@
   --color-text-dim: var(--text-dim);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
-  --font-display: var(--font-bricolage);
-  --font-sans: var(--font-plus-jakarta-sans);
+  --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains-mono);
 }
 
@@ -46,43 +43,13 @@ body {
   color: var(--foreground);
 }
 
-/* Syne has tall descenders — prevent clipping on g, y, p, etc. */
-h1, h2, h3 {
-  overflow: visible;
-  padding-bottom: 0.05em;
-}
-
-/* ── Scan-line overlay ── */
-.scanlines::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 212, 255, 0.015) 2px,
-    rgba(0, 212, 255, 0.015) 4px
-  );
-  z-index: 1;
-}
-
-/* ── Grid overlay ── */
-.cockpit-grid {
-  background-image:
-    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
 /* ── Noise grain ── */
 .grain::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.025;
   z-index: 100;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
@@ -91,7 +58,7 @@ h1, h2, h3 {
 
 /* ── Animations ── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(40px); }
+  from { opacity: 0; transform: translateY(32px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -107,7 +74,7 @@ h1, h2, h3 {
 
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+  50% { opacity: 0.6; }
 }
 
 @keyframes blink {
@@ -115,25 +82,8 @@ h1, h2, h3 {
   50% { opacity: 0.3; }
 }
 
-@keyframes scan-down {
-  0% { transform: translateY(-100%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(400%); opacity: 0; }
-}
-
-@keyframes type-in {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes hud-bracket-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
 .animate-fade-up {
-  animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
 }
 
@@ -143,23 +93,15 @@ h1, h2, h3 {
 }
 
 .animate-radar {
-  animation: radar-sweep 8s linear infinite;
+  animation: radar-sweep 10s linear infinite;
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
+  animation: pulse-glow 4s ease-in-out infinite;
 }
 
 .animate-blink {
-  animation: blink 2s ease-in-out infinite;
-}
-
-.animate-scan-down {
-  animation: scan-down 4s ease-in-out infinite;
-}
-
-.animate-hud-bracket {
-  animation: hud-bracket-pulse 2.5s ease-in-out infinite;
+  animation: blink 2.5s ease-in-out infinite;
 }
 
 .delay-100 { animation-delay: 0.1s; }
@@ -173,48 +115,28 @@ h1, h2, h3 {
 .delay-1000 { animation-delay: 1s; }
 .delay-1200 { animation-delay: 1.2s; }
 
-/* ── Feature card instrument styling ── */
+/* ── Instrument cards ── */
 .instrument-card {
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.instrument-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.instrument-card:hover::before {
-  opacity: 0.6;
+  transition: all 0.35s ease;
 }
 
 .instrument-card:hover {
-  border-color: rgba(0, 212, 255, 0.2);
-  background: rgba(10, 16, 32, 0.9);
+  border-color: rgba(0, 212, 255, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 8px 40px -12px rgba(0, 212, 255, 0.08);
+  box-shadow: 0 12px 40px -12px rgba(0, 212, 255, 0.06);
 }
 
-/* ── Legal page content styling ── */
+/* ── Legal pages ── */
 .legal-content section {
   padding: 1.75rem;
   border-radius: 0.75rem;
   border: 1px solid var(--card-border);
   background: var(--card-bg);
+  transition: border-color 0.3s;
 }
 
 .legal-content section:hover {
-  border-color: rgba(0, 212, 255, 0.15);
-}
-
-.legal-content h2 {
-  font-family: var(--font-display);
+  border-color: rgba(0, 212, 255, 0.12);
 }
