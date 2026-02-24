@@ -1,5 +1,6 @@
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { AnimatedCounter } from "@/components/animated-counter";
+import { ShieldCheck, Clock3, Languages, Cloud } from "lucide-react";
 
 /* ── Data ── */
 const showcaseFeatures = [
@@ -48,6 +49,25 @@ const gridFeatures = [
   { tag: "PA", title: "Cabin Announcements", description: "Bilingual EN/TR briefing scripts for every phase from welcome to emergency." },
   { tag: "REF", title: "Metric Table", description: "Instant meters-to-feet altitude conversions for RVSM airspace." },
   { tag: "CRG", title: "Cargo Codes", description: "Searchable IMP cargo code reference for DG, perishables, and special handling." },
+];
+
+const trustItems = [
+  {
+    label: "OM Part A Compliant",
+    icon: ShieldCheck,
+  },
+  {
+    label: "Real-Time Data",
+    icon: Clock3,
+  },
+  {
+    label: "EN/TR Support",
+    icon: Languages,
+  },
+  {
+    label: "Offline + Online Capable",
+    icon: Cloud,
+  },
 ];
 
 /* ── Visual mocks ── */
@@ -264,14 +284,17 @@ export default function Home() {
       </section>
 
       {/* ── TRUST STRIP ── */}
-      <section className="border-y border-border-custom/15 py-14">
+      <section className="border-y border-border-custom/15 py-16">
         <div className="mx-auto max-w-[1400px] px-10 lg:px-14">
           <ScrollReveal>
-            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-6">
-              {["Offline First", "OM Part A Compliant", "Bilingual EN/TR", "Real-Time Data", "No Ads", "Trusted by THY pilots"].map((label) => (
-                <span key={label} className="text-[14px] tracking-wide text-text-dim transition-colors hover:text-text-secondary">
-                  {label}
-                </span>
+            <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
+              {trustItems.map((item) => (
+                <div key={item.label} className="text-center">
+                  <div className="mx-auto mb-4 flex h-[54px] w-[54px] items-center justify-center text-accent-cyan">
+                    <item.icon className="h-[54px] w-[54px]" strokeWidth={1.75} aria-hidden="true" />
+                  </div>
+                  <p className="text-[14px] font-medium tracking-wide text-text-secondary">{item.label}</p>
+                </div>
               ))}
             </div>
           </ScrollReveal>
@@ -279,21 +302,19 @@ export default function Home() {
       </section>
 
       {/* ── STATS ── */}
-      <section className="py-28">
+      <section className="py-20">
         <div className="mx-auto max-w-[1100px] px-10 lg:px-14">
-          <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-2">
             {[
               { target: 11, suffix: "", label: "Pilot Tools" },
-              { target: 2, suffix: "", label: "Languages" },
-              { target: 100, suffix: "%", label: "Offline Capable" },
               { target: 0, suffix: "", label: "Ads, Ever", static: true },
             ].map((stat, i) => (
               <ScrollReveal key={stat.label} delay={i * 120}>
                 <div className="text-center">
-                  <p className="font-mono text-[48px] font-bold leading-none text-accent-cyan md:text-[56px]">
+                  <p className="font-mono text-[46px] font-bold leading-none text-accent-cyan md:text-[54px]">
                     {stat.static ? "0" : <AnimatedCounter target={stat.target} suffix={stat.suffix} />}
                   </p>
-                  <p className="mt-4 text-[14px] text-text-dim">{stat.label}</p>
+                  <p className="mt-4 text-[14px] font-medium tracking-wide text-text-secondary">{stat.label}</p>
                 </div>
               </ScrollReveal>
             ))}
