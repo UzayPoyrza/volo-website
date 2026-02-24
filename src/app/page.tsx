@@ -225,18 +225,17 @@ export default function Home() {
               </div>
 
               <h1 className="animate-fade-up delay-200 mt-10 text-[clamp(3rem,5.5vw,5rem)] font-bold leading-[1.1] tracking-[-0.025em]">
-                Weather, calculators
+                Your flight ops
                 <br />
-                &amp; briefings in
-                <br />
+                toolkit,{" "}
                 <span className="bg-gradient-to-r from-accent-cyan to-accent-green bg-clip-text text-transparent">
-                  one app
+                  in your pocket
                 </span>
               </h1>
 
               <p className="animate-fade-up delay-400 mt-8 max-w-[500px] text-[18px] leading-relaxed text-text-secondary">
-                Ops suitability, crew rest, CTOT, cold temp corrections, and
-                bilingual cabin announcements. Offline-first.
+                Check weather suitability, calculate crew rest and slot times,
+                verify NAT routes, and run cabin briefings — all offline, from one app.
               </p>
 
               <div className="animate-fade-up delay-500 mt-10 flex flex-wrap items-center gap-5">
