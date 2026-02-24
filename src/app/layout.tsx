@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Syne, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
-const syne = Syne({
-  variable: "--font-syne",
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${syne.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased grain`}
+        className={`${bricolage.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased grain`}
       >
         <Header />
         {children}
