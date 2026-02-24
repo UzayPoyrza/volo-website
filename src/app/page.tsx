@@ -156,13 +156,42 @@ const visuals: Record<string, () => React.ReactNode> = {
 /* ── Radar ── */
 function RadarSweep() {
   return (
-    <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-      <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.03]" />
-      <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.05]" />
-      <div className="absolute left-1/2 top-1/2 h-px w-[500px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-accent-cyan/[0.04] to-transparent" />
-      <div className="animate-radar absolute left-1/2 top-1/2 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2">
-        <div className="h-full w-full" style={{ background: "conic-gradient(from 0deg, transparent 0deg, rgba(0,212,255,0.04) 40deg, transparent 80deg)" }} />
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute left-1/2 top-[42%] h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-cyan/[0.018] blur-[140px]" />
+
+      <div className="absolute left-1/2 top-[42%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.045]" />
+      <div className="absolute left-1/2 top-[42%] h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.035]" />
+      <div className="absolute left-1/2 top-[42%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.045]" />
+
+      <div className="absolute left-1/2 top-[42%] h-px w-[620px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-accent-cyan/[0.045] to-transparent" />
+      <div className="absolute left-1/2 top-[42%] h-[620px] w-px -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-accent-cyan/[0.045] to-transparent" />
+
+      <div className="animate-radar absolute left-1/2 top-[42%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full">
+        <div
+          className="h-full w-full rounded-full"
+          style={{
+            background:
+              "conic-gradient(from 0deg, rgba(0,212,255,0.13) 0deg, rgba(0,212,255,0.055) 34deg, rgba(0,212,255,0.01) 72deg, transparent 112deg, transparent 360deg)",
+            filter: "blur(0.5px)",
+          }}
+        />
       </div>
+
+      <div
+        className="absolute left-1/2 top-[42%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{ animation: "radar-sweep 22s linear infinite reverse" }}
+      >
+        <div
+          className="h-full w-full rounded-full"
+          style={{
+            background:
+              "conic-gradient(from 180deg, rgba(34,197,94,0.06) 0deg, rgba(34,197,94,0.024) 22deg, transparent 58deg, transparent 360deg)",
+            filter: "blur(0.8px)",
+          }}
+        />
+      </div>
+
+      <div className="absolute left-1/2 top-[42%] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-cyan/45 shadow-[0_0_18px_rgba(0,212,255,0.3)]" />
     </div>
   );
 }
