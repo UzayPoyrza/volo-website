@@ -157,41 +157,41 @@ const visuals: Record<string, () => React.ReactNode> = {
 function RadarSweep() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute left-1/2 top-[42%] h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-cyan/[0.018] blur-[140px]" />
+      <div className="absolute left-1/2 top-[46%] h-[1500px] w-[1500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-cyan/[0.008] blur-[200px]" />
 
-      <div className="absolute left-1/2 top-[42%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.045]" />
-      <div className="absolute left-1/2 top-[42%] h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.035]" />
-      <div className="absolute left-1/2 top-[42%] h-[280px] w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.045]" />
+      <div className="absolute left-1/2 top-[46%] h-[1280px] w-[1280px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.013]" />
+      <div className="absolute left-1/2 top-[46%] h-[980px] w-[980px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.01]" />
+      <div className="absolute left-1/2 top-[46%] h-[680px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-cyan/[0.013]" />
 
-      <div className="absolute left-1/2 top-[42%] h-px w-[620px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-accent-cyan/[0.045] to-transparent" />
-      <div className="absolute left-1/2 top-[42%] h-[620px] w-px -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-accent-cyan/[0.045] to-transparent" />
+      <div className="absolute left-1/2 top-[46%] h-px w-[1400px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-transparent via-accent-cyan/[0.014] to-transparent" />
+      <div className="absolute left-1/2 top-[46%] h-[1400px] w-px -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-accent-cyan/[0.014] to-transparent" />
 
-      <div className="animate-radar absolute left-1/2 top-[42%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full">
+      <div className="animate-radar absolute left-1/2 top-[46%] h-[1280px] w-[1280px] -translate-x-1/2 -translate-y-1/2 rounded-full">
         <div
           className="h-full w-full rounded-full"
           style={{
             background:
-              "conic-gradient(from 0deg, rgba(0,212,255,0.13) 0deg, rgba(0,212,255,0.055) 34deg, rgba(0,212,255,0.01) 72deg, transparent 112deg, transparent 360deg)",
-            filter: "blur(0.5px)",
+              "conic-gradient(from 0deg, rgba(0,212,255,0.055) 0deg, rgba(0,212,255,0.024) 40deg, rgba(0,212,255,0.005) 84deg, transparent 130deg, transparent 360deg)",
+            filter: "blur(1.2px)",
           }}
         />
       </div>
 
       <div
-        className="absolute left-1/2 top-[42%] h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{ animation: "radar-sweep 22s linear infinite reverse" }}
+        className="absolute left-1/2 top-[46%] h-[1280px] w-[1280px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{ animation: "radar-sweep 28s linear infinite reverse" }}
       >
         <div
           className="h-full w-full rounded-full"
           style={{
             background:
-              "conic-gradient(from 180deg, rgba(34,197,94,0.06) 0deg, rgba(34,197,94,0.024) 22deg, transparent 58deg, transparent 360deg)",
-            filter: "blur(0.8px)",
+              "conic-gradient(from 180deg, rgba(34,197,94,0.02) 0deg, rgba(34,197,94,0.009) 24deg, transparent 62deg, transparent 360deg)",
+            filter: "blur(1.4px)",
           }}
         />
       </div>
 
-      <div className="absolute left-1/2 top-[42%] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-cyan/45 shadow-[0_0_18px_rgba(0,212,255,0.3)]" />
+      <div className="absolute left-1/2 top-[46%] h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-cyan/25 shadow-[0_0_12px_rgba(0,212,255,0.16)]" />
     </div>
   );
 }
