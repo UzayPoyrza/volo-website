@@ -46,6 +46,12 @@ body {
   color: var(--foreground);
 }
 
+/* Syne has tall descenders — prevent clipping on g, y, p, etc. */
+h1, h2, h3 {
+  overflow: visible;
+  padding-bottom: 0.05em;
+}
+
 /* ── Scan-line overlay ── */
 .scanlines::after {
   content: "";

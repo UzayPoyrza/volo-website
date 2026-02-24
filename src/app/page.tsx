@@ -230,7 +230,7 @@ export default function Home() {
         <RadarSweep />
 
         <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <div className="grid items-center gap-16 lg:grid-cols-2">
+          <div className="grid items-center gap-12 lg:grid-cols-[1fr_minmax(0,420px)] lg:gap-20">
             {/* Left — Copy */}
             <div>
               <div className="animate-fade-up">
@@ -245,7 +245,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <h1 className="animate-fade-up delay-200 font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+              <h1 className="animate-fade-up delay-200 font-display text-5xl font-extrabold leading-[1.15] tracking-tight md:text-6xl lg:text-7xl">
                 Your flight
                 <br />
                 deck&apos;s missing
