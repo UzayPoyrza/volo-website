@@ -19,6 +19,44 @@ export const metadata: Metadata = {
   title: "Volo — Pilot Companion",
   description:
     "Aviation assistant for Turkish Airlines pilots. Calculators, weather suitability, crew rest planning, and bilingual cabin briefings — all in one app.",
+  metadataBase: new URL("https://voloapp.co"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: "Volo — Pilot Companion",
+    description:
+      "Aviation assistant for Turkish Airlines pilots. Calculators, weather suitability, crew rest planning, and bilingual cabin briefings — all in one app.",
+    url: "https://voloapp.co",
+    siteName: "Volo",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Volo — Aviation Pilot Companion App",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Volo — Pilot Companion",
+    description:
+      "Aviation assistant for Turkish Airlines pilots. Calculators, weather suitability, crew rest planning, and bilingual cabin briefings.",
+    images: ["/og-image.png"],
+  },
+  other: {
+    "theme-color": "#050810",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "Volo",
+  },
 };
 
 export default function RootLayout({
