@@ -43,6 +43,16 @@ body {
   color: var(--foreground);
 }
 
+/* ── iOS safe area: extend fixed header into status bar / Dynamic Island ── */
+header {
+  padding-top: env(safe-area-inset-top, 0px) !important;
+}
+
+.hero-section {
+  padding-top: calc(72px + env(safe-area-inset-top, 0px)) !important;
+}
+
+
 /* ── Noise grain ── */
 .grain::before {
   content: "";

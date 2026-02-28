@@ -1,25 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 20);
+
+      // Hide on scroll down, show on scroll up (mobile only)
+      if (window.innerWidth < 768) {
+        setHidden(y > 80 && y > lastY.current);
+      } else {
+        setHidden(false);
+      }
+
+      lastY.current = y;
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full border-b border-transparent transition-all duration-500 ${
+      className={`fixed top-0 z-50 w-full border-b border-transparent ${
         scrolled
           ? "border-border-custom/20 bg-background/50 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
           : "bg-background"
-      }`}
+      } ${hidden ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+      style={{ transition: "opacity 150ms ease, background-color 500ms ease, border-color 500ms ease, box-shadow 500ms ease" }}
     >
       <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-10 lg:px-14">
         <Link href="/" className="flex items-center gap-2.5">

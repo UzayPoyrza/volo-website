@@ -253,11 +253,18 @@ export default function Home() {
   return (
     <main className="relative overflow-hidden">
       {/* ── HERO ── */}
-      <section className="relative flex min-h-screen items-center justify-center px-10 pt-[72px] lg:px-14">
-        <div className="pointer-events-none absolute inset-0">
+      <section className="hero-section relative flex min-h-screen items-center justify-center px-10 lg:px-14">
+        {/* Mobile: top-down glow */}
+        <div className="pointer-events-none absolute inset-0 lg:hidden">
+          <div className="absolute left-1/2 top-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/4 rounded-full bg-accent-cyan/[0.04] blur-[160px]" />
+        </div>
+        {/* Desktop: full radar + glow */}
+        <div className="pointer-events-none absolute inset-0 hidden lg:block">
           <div className="animate-pulse-glow absolute left-1/2 top-[35%] h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-accent-cyan/[0.025] blur-[160px]" />
         </div>
-        <RadarSweep />
+        <div className="hidden lg:block">
+          <RadarSweep />
+        </div>
 
         <div className="relative z-10 mx-auto w-full max-w-[1400px]">
           <div className="grid items-center gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">

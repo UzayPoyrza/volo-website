@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -14,6 +14,11 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  themeColor: "#050810",
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "Volo — Pilot Companion",
@@ -52,9 +57,8 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   other: {
-    "theme-color": "#050810",
     "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-status-bar-style": "default",
     "apple-mobile-web-app-title": "Volo",
   },
 };
