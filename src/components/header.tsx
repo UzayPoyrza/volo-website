@@ -14,9 +14,9 @@ export function Header() {
       const y = window.scrollY;
       setScrolled(y > 20);
 
-      // Hide on scroll down, show on scroll up (mobile only)
+      // Mobile: only show header at the very top of the page
       if (window.innerWidth < 768) {
-        setHidden(y > 80 && y > lastY.current);
+        setHidden(y > 80);
       } else {
         setHidden(false);
       }
