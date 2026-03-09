@@ -100,7 +100,7 @@ export default function PrivacyPolicy() {
                 "Aircraft SIM registration code lookup",
                 "Meter-to-feet altitude conversion table",
                 "NAT HLA route verification (great-circle calculations)",
-                "Operational suitability weather checker (fetches live TAFs and applies OM Part A weather minima rules)",
+                "Operational suitability weather checker (fetches live TAFs and applies ICAO weather minima rules)",
                 "Departure assist (fetches runway/SID/departure info)",
                 "Bilingual cabin briefing announcement scripts (English/Turkish)",
                 "PDF export and sharing for results",

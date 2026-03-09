@@ -8,10 +8,10 @@ const showcaseFeatures = [
     tag: "WX",
     title: "Operational Suitability",
     description:
-      "Auto-fetch TAFs for any airport and instantly check weather against OM Part A minima. Color-coded results show suitability at a glance.",
+      "Auto-fetch TAFs for any airport and instantly check weather against ICAO minima. Color-coded results show suitability at a glance.",
     details: [
       "Real-time TAF parsing from aviationweather.gov",
-      "Rule engine for OM Part A weather minima",
+      "Rule engine for ICAO weather minima",
       "Supports multi-airport suitability checks",
     ],
     visual: "suitability",
@@ -53,7 +53,7 @@ const gridFeatures = [
 
 const trustItems = [
   {
-    label: "OM Part A Compliant",
+    label: "ICAO Compliant",
     icon: ShieldCheck,
   },
   {
@@ -61,7 +61,7 @@ const trustItems = [
     icon: Clock3,
   },
   {
-    label: "EN/TR Support",
+    label: "All-in-One",
     icon: Languages,
   },
   {
@@ -290,8 +290,7 @@ export default function Home() {
               </h1>
 
               <p className="animate-fade-up delay-400 mt-8 max-w-[500px] text-[18px] leading-relaxed text-text-secondary">
-                Check weather suitability, calculate crew rest and slot times,
-                verify NAT routes, and run cabin briefings — all offline, from one app.
+                Check weather suitability, calculate crew rest and slot times, cold temperature corrections, verify NAT routes, metric table and flight time calculator — all offline, from one app.
               </p>
 
               <div className="animate-fade-up delay-500 mt-10 flex flex-wrap items-center gap-5">
@@ -342,7 +341,7 @@ export default function Home() {
         <div className="mx-auto max-w-[1100px] px-10 lg:px-14">
           <div className="grid grid-cols-2 gap-10 md:grid-cols-2">
             {[
-              { target: 11, suffix: "", label: "Pilot Tools" },
+              { target: 9, suffix: "+", label: "Pilot Tools" },
               { target: 0, suffix: "", label: "Ads, Ever", static: true },
             ].map((stat, i) => (
               <ScrollReveal key={stat.label} delay={i * 120}>
