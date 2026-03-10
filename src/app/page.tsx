@@ -1,6 +1,9 @@
+"use client";
+
+import { useRef, useState, useEffect } from "react";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { AnimatedCounter } from "@/components/animated-counter";
-import { ShieldCheck, Clock3, Languages, Cloud } from "lucide-react";
+import { Layers, Clock3, Cloud, SunMoon, Tablet, Smartphone } from "lucide-react";
 
 /* ── Data ── */
 const showcaseFeatures = [
@@ -10,9 +13,9 @@ const showcaseFeatures = [
     description:
       "Auto-fetch TAFs for any airport and instantly check weather against ICAO minima. Color-coded results show suitability at a glance.",
     details: [
-      "Real-time TAF parsing from aviationweather.gov",
+      "Paste airports and suitability times straight from your OFP — saves tremendous time",
       "Rule engine for ICAO weather minima",
-      "Supports multi-airport suitability checks",
+      "Shareable PDF report for the whole flight",
     ],
     visual: "suitability",
   },
@@ -22,11 +25,23 @@ const showcaseFeatures = [
     description:
       "Paste your North Atlantic route and validate every waypoint against the HLA database. Great-circle distance and bearing for each leg.",
     details: [
-      "Full NAT waypoint coordinate database",
-      "Great-circle distance & initial bearing",
-      "Visual route table with leg-by-leg breakdown",
+      "Paste your route directly from the OFP — instant verification",
+      "Great-circle distance & initial bearing per leg",
+      "Export results as a shareable PDF",
     ],
     visual: "nat",
+  },
+  {
+    tag: "TEMP",
+    title: "Cold Temp Correction",
+    description:
+      "Apply ICAO cold temperature altitude corrections for safe instrument approaches. Enter aerodrome temp and published altitude to get corrected values.",
+    details: [
+      "ICAO standard cold temperature correction formula",
+      "Supports FAF, step-down fix, and MDA/DA altitudes",
+      "Export corrected altitudes as a shareable PDF",
+    ],
+    visual: "coldtemp",
   },
   {
     tag: "DEP",
@@ -35,114 +50,361 @@ const showcaseFeatures = [
       "Enter your flight number and get instant runway assignments, SID information, and taxi estimates. Live data for LTFM from IGA CDM.",
     details: [
       "Live IGA CDM integration for Istanbul",
-      "FlightAware fallback for worldwide coverage",
+      "Worldwide coverage via public flight data",
       "Runway and SID assignments in seconds",
     ],
     visual: "departure",
   },
 ];
 
+/* Grid: app order (left-to-right, top-to-bottom), coming soon last */
 const gridFeatures = [
-  { tag: "REST", title: "Crew Rest Time", description: "Calculate overlapping rest slots for 2\u20134 pilots with fatigue regulation compliance." },
-  { tag: "SLOT", title: "CTOT Calculator", description: "Compute Target Off-Block Times accounting for taxi time and slot tolerance." },
-  { tag: "TEMP", title: "Cold Temp Correction", description: "ICAO cold temperature altitude corrections for safe instrument approaches." },
-  { tag: "PA", title: "Cabin Announcements", description: "Bilingual EN/TR briefing scripts for every phase from welcome to emergency." },
-  { tag: "REF", title: "Metric Table", description: "Instant meters-to-feet altitude conversions for RVSM airspace." },
+  { tag: "REST", title: "Crew Rest Time", description: "Calculate overlapping rest slots for 2–4 pilots with a clean, intuitive interface designed for quick inflight use." },
+  { tag: "SLOT", title: "CTOT Calculator", description: "Compute Target Off-Block Times and boarding start times, accounting for taxi time and slot tolerance." },
+  { tag: "REF", title: "Metric Table", description: "Instant meters-to-feet altitude conversion table for RVSM airspace. Export the full table as PDF for quick reference." },
   { tag: "CRG", title: "Cargo Codes", description: "Searchable IMP cargo code reference for DG, perishables, and special handling." },
+  { tag: "TIME", title: "Times Calculator", description: "Add hours and minutes for flight time logbook entries, duty periods, and scheduling." },
+  { tag: "PA", title: "Cabin Announcements", description: "Bilingual EN/TR announcement scripts for every phase from welcome to emergency.", comingSoon: true },
 ];
 
 const trustItems = [
   {
-    label: "ICAO Compliant",
-    icon: ShieldCheck,
+    label: "All-in-One",
+    icon: Layers,
   },
   {
     label: "Real-Time Data",
     icon: Clock3,
   },
   {
-    label: "All-in-One",
-    icon: Languages,
-  },
-  {
     label: "Offline + Online Capable",
     icon: Cloud,
+  },
+  {
+    label: "Day & Night Mode",
+    icon: SunMoon,
   },
 ];
 
 /* ── Visual mocks ── */
 function SuitabilityMock() {
+  const suitRef = useRef<HTMLDivElement>(null);
+  const [suitInView, setSuitInView] = useState(false);
+
+  useEffect(() => {
+    const el = suitRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setSuitInView(true); obs.unobserve(el); } },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  /* Airport list (input view) — colors from TYPE_COLORS in op-suitability.tsx */
+  const airports = [
+    { icao: "LTFM", role: "DEP", time: "1150–1350Z", color: "#22c55e" },
+    { icao: "KJFK", role: "DEST", time: "2204–0004Z", color: "#00d4ff" },
+    { icao: "KEWR", role: "DEST ALTN", time: "2204–0036Z", color: "#f59e0b" },
+    { icao: "LHBP", role: "IA", time: "1320–1621Z", color: "#94a3b8" },
+    { icao: "EINN", role: "ETOPS ALT", time: "1732–2034Z", color: "#f59e0b" },
+    { icao: "BIKF", role: "ETOPS ALT", time: "1825–2226Z", color: "#f59e0b" },
+    { icao: "CYYT", role: "ETOPS ALT", time: "2005–2222Z", color: "#f59e0b" },
+  ];
+
+  /* TAF result view — SEVERITY_COLORS_DARK from op-suitability.tsx */
+  const S = {
+    red:   { bg: "rgba(239,68,68,0.12)", border: "#ef4444", tc: "#fca5a5" },
+    green: { bg: "rgba(34,197,94,0.12)", border: "#22c55e", tc: "#bbf7d0" },
+    none:  { bg: "transparent", border: "transparent", tc: "" },
+  };
+  const tafResults = [
+    {
+      icao: "LTFM", role: "DEP", roleColor: "#22c55e", time: "1150–1350Z",
+      lines: [
+        { text: "TAF LTFM 040440Z 0406/0512 VRB02KT 0300 FG VV001", ...S.red },
+        { text: "BECMG 0406/0409 01012KT 9999 NSW SCT030", ...S.none },
+        { text: "BECMG 0409/0412 CAVOK", ...S.green },
+        { text: "BECMG 0415/0418 SCT012", ...S.none },
+        { text: "BECMG 0418/0421 21007KT", ...S.none },
+        { text: "PROB40 TEMPO 0420/0424 2500 BR BKN009", ...S.none },
+        { text: "BECMG 0504/0507 CAVOK", ...S.none },
+      ],
+    },
+    {
+      icao: "KJFK", role: "DEST", roleColor: "#00d4ff", time: "2204–0004Z",
+      lines: [
+        { text: "TAF KJFK 040833Z 0409/0512 VRB05KT 3SM BR BKN006 OVC020", ...S.red },
+        { text: "FM041300 32006KT 5SM BR FEW006 BKN015", ...S.none },
+        { text: "FM041600 36005KT P6SM FEW020 SCT250", ...S.none },
+        { text: "FM042000 VRB05KT P6SM SCT100 BKN250", ...S.green },
+        { text: "FM050400 VRB02KT 6SM BR SCT008 BKN100 BKN250", ...S.none },
+        { text: "FM050700 VRB02KT 3SM BR BKN008", ...S.none },
+      ],
+    },
+  ];
+
   return (
-    <div className="rounded-2xl border border-card-border/50 bg-card-bg/70 p-7">
-      <div className="mb-5 flex items-center justify-between">
-        <span className="text-[15px] font-medium text-text-secondary">Suitability Check</span>
-        <span className="font-mono text-[12px] text-text-dim">3 airports</span>
-      </div>
-      {[
-        { icao: "EGLL", name: "Heathrow", status: "SUITABLE", color: "text-accent-green", bg: "bg-accent-green/5", border: "border-accent-green/15" },
-        { icao: "LFPG", name: "De Gaulle", status: "MARGINAL", color: "text-accent-amber", bg: "bg-accent-amber/5", border: "border-accent-amber/15" },
-        { icao: "EHAM", name: "Schiphol", status: "SUITABLE", color: "text-accent-green", bg: "bg-accent-green/5", border: "border-accent-green/15" },
-      ].map((apt) => (
-        <div key={apt.icao} className={`mb-3 flex items-center justify-between rounded-xl border ${apt.border} ${apt.bg} px-6 py-4 last:mb-0`}>
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-[16px] font-semibold text-foreground">{apt.icao}</span>
-            <span className="text-[14px] text-text-dim">{apt.name}</span>
-          </div>
-          <span className={`font-mono text-[13px] font-medium ${apt.color}`}>{apt.status}</span>
+    <div ref={suitRef} className="relative overflow-hidden rounded-2xl border border-card-border/50 bg-card-bg/70">
+      {/* View A — Airport List */}
+      <div className={suitInView ? "animate-crossfade-a" : ""}>
+        <div className="border-b border-border-custom/15 px-5 py-3">
+          <span className="text-[12px] font-medium uppercase tracking-wider text-text-dim">Airport List</span>
         </div>
-      ))}
+        <div className="divide-y divide-border-custom/10">
+          {airports.map((apt) => (
+            <div key={apt.icao + apt.role} className="flex items-center justify-between px-5 py-3">
+              <span className="font-mono text-[16px] font-bold text-foreground">{apt.icao}</span>
+              <div
+                className="rounded-lg border px-3 py-1.5"
+                style={{ backgroundColor: `${apt.color}12`, borderColor: `${apt.color}40` }}
+              >
+                <span className="text-[11px] font-bold" style={{ color: apt.color }}>{apt.role}</span>
+                <span className="ml-2 font-mono text-[11px] font-medium text-text-secondary">{apt.time}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="border-t border-border-custom/15 px-5 py-4">
+          <div className="flex h-[44px] items-center justify-center rounded-xl bg-accent-cyan text-[15px] font-semibold text-background">
+            Check Suitability
+          </div>
+        </div>
+      </div>
+
+      {/* View B — TAF Results (stacked, absolute overlay) */}
+      <div className={`${suitInView ? "animate-crossfade-b" : "opacity-0"} absolute inset-0 flex flex-col`}>
+        <div className="flex-1 overflow-hidden">
+          {tafResults.map((taf) => (
+            <div key={taf.icao}>
+              <div className="flex items-center justify-between border-b border-border-custom/15 px-4 py-3">
+                <span className="font-mono text-[22px] font-bold text-foreground">{taf.icao}</span>
+                <div
+                  className="rounded-lg border px-2 py-1"
+                  style={{ backgroundColor: `${taf.roleColor}15`, borderColor: `${taf.roleColor}50` }}
+                >
+                  <span className="text-[13px] font-bold leading-tight" style={{ color: taf.roleColor }}>{taf.role}</span>
+                  <div className="font-mono text-[13px] font-medium leading-tight text-text-dim">{taf.time}</div>
+                </div>
+              </div>
+              <div className="px-3.5 py-1">
+                {taf.lines.map((line: { text: string; bg: string; border: string; tc: string }, i: number) => (
+                  <div
+                    key={i}
+                    className="my-px rounded"
+                    style={{
+                      backgroundColor: line.bg,
+                      borderLeft: `3px solid ${line.border}`,
+                      paddingLeft: line.border !== "transparent" ? 8 : 0,
+                      paddingTop: line.border !== "transparent" ? 3 : 0,
+                      paddingBottom: line.border !== "transparent" ? 3 : 0,
+                    }}
+                  >
+                    <pre
+                      className="whitespace-pre-wrap font-mono text-[13px] text-foreground"
+                      style={{
+                        color: line.tc || undefined,
+                        lineHeight: "20px",
+                      }}
+                    >{line.text}</pre>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-center py-3">
+          <div
+            className="inline-flex items-center gap-1.5 rounded-full border px-4 py-2"
+            style={{ backgroundColor: "rgba(0,212,255,0.1)", borderColor: "rgba(0,212,255,0.25)" }}
+          >
+            <svg className="h-5 w-5 text-accent-cyan" viewBox="0 0 24 24" fill="none">
+              <path d="M9 6l3-3 3 3M12 3v12M5 10v9a1 1 0 001 1h12a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="text-[12px] text-accent-cyan">PDF</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
 function NatMock() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.unobserve(el); } },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const legs = [
+    { from: "MALOT", to: "56N020W", tt: "312\u00b0", dist: "342" },
+    { from: "56N020W", to: "57N030W", tt: "298\u00b0", dist: "387" },
+    { from: "57N030W", to: "56N040W", tt: "284\u00b0", dist: "401" },
+    { from: "56N040W", to: "CLAVY", tt: "271\u00b0", dist: "256" },
+  ];
+
   return (
-    <div className="rounded-2xl border border-card-border/50 bg-card-bg/70 p-7">
-      <div className="mb-5 flex items-center justify-between">
-        <span className="text-[15px] font-medium text-text-secondary">Route Validation</span>
-        <span className="font-mono text-[12px] text-accent-green">VALID</span>
+    <div ref={ref} className="relative overflow-hidden rounded-2xl border border-card-border/50 bg-card-bg/70">
+      {/* View A — Route Input (named waypoints) */}
+      <div className={inView ? "animate-cf3-a" : ""}>
+        <div className="px-5 py-4">
+          <span className="mb-2 block text-[12px] font-medium text-text-dim">Route Waypoints</span>
+          <div className="rounded-xl border border-border-custom/30 bg-background/40 px-4 py-4" style={{ minHeight: 150 }}>
+            <pre className="font-mono text-[14px] leading-relaxed text-foreground">MALOT 56/20 57/30 56/40 CLAVY</pre>
+          </div>
+          <p className="mt-3 text-center text-[12px] text-text-dim">Paste your NAT route directly from the OFP</p>
+          <div className="mt-3">
+            <div className="flex h-[44px] items-center justify-center rounded-xl bg-accent-cyan text-[15px] font-semibold text-background">
+              Verify Route
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="space-y-2.5">
-        {[
-          { wpt: "MALOT", dist: "\u2014", brg: "\u2014" },
-          { wpt: "56N020W", dist: "342 nm", brg: "312\u00b0" },
-          { wpt: "57N030W", dist: "387 nm", brg: "298\u00b0" },
-          { wpt: "56N040W", dist: "401 nm", brg: "284\u00b0" },
-          { wpt: "CLAVY", dist: "256 nm", brg: "271\u00b0" },
-        ].map((leg, i) => (
-          <div key={i} className="flex items-center justify-between rounded-xl bg-background/40 px-5 py-3">
-            <span className="font-mono text-[14px] font-medium text-accent-cyan">{leg.wpt}</span>
-            <div className="flex items-center gap-6">
-              <span className="font-mono text-[13px] text-text-secondary">{leg.dist}</span>
-              <span className="font-mono text-[13px] text-text-dim">{leg.brg}</span>
+
+      {/* View B — Same route, different format (DDN coordinates) */}
+      <div className={`${inView ? "animate-cf3-b" : "opacity-0"} absolute inset-0`}>
+        <div className="px-5 py-4">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-[12px] font-medium text-text-dim">Route Waypoints</span>
+            <span className="text-[11px] text-accent-cyan">Supports many different formats</span>
+          </div>
+          <div className="rounded-xl border border-border-custom/30 bg-background/40 px-4 py-4" style={{ minHeight: 150 }}>
+            <pre className="font-mono text-[14px] leading-relaxed text-foreground">MALOT DCT 5620N DCT 5730N{"\n"}DCT 5640N DCT CLAVY</pre>
+          </div>
+          <p className="mt-3 text-center text-[12px] text-text-dim">Paste your NAT route directly from the OFP</p>
+          <div className="mt-3">
+            <div className="flex h-[44px] items-center justify-center rounded-xl bg-accent-cyan text-[15px] font-semibold text-background">
+              Verify Route
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* View C — Results Table */}
+      <div className={`${inView ? "animate-cf3-c" : "opacity-0"} absolute inset-0 flex flex-col`}>
+        <div className="flex-1 overflow-hidden">
+          <div className="flex bg-background/60 px-5 py-3">
+            <span className="flex-1 text-[11px] font-bold uppercase tracking-widest text-text-dim">From</span>
+            <span className="flex-1 text-[11px] font-bold uppercase tracking-widest text-text-dim">To</span>
+            <span className="w-16 text-right text-[11px] font-bold uppercase tracking-widest text-text-dim">TT (&deg;)</span>
+            <span className="w-16 text-right text-[11px] font-bold uppercase tracking-widest text-text-dim">Dist</span>
+          </div>
+          {legs.map((leg, i) => (
+            <div key={i} className="flex border-b border-accent-cyan/[0.08] px-5 py-2.5 last:border-b-0">
+              <span className="flex-1 font-mono text-[13px] font-medium text-foreground">{leg.from}</span>
+              <span className="flex-1 font-mono text-[13px] font-medium text-foreground">{leg.to}</span>
+              <span className="w-16 text-right font-mono text-[13px] font-bold text-accent-cyan">{leg.tt}</span>
+              <span className="w-16 text-right font-mono text-[13px] font-bold text-accent-cyan">{leg.dist}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-center py-2">
+          <div
+            className="inline-flex items-center gap-1.5 rounded-full border px-4 py-2"
+            style={{ backgroundColor: "rgba(0,212,255,0.1)", borderColor: "rgba(0,212,255,0.25)" }}
+          >
+            <svg className="h-5 w-5 text-accent-cyan" viewBox="0 0 24 24" fill="none">
+              <path d="M9 6l3-3 3 3M12 3v12M5 10v9a1 1 0 001 1h12a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="text-[12px] text-accent-cyan">PDF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ColdTempMock() {
+  const fixes = [
+    { label: "Fix 1", input: "3200", result: "3520" },
+    { label: "Fix 2", input: "2800", result: "3060" },
+    { label: "Fix 3", input: "5000", result: "5500" },
+  ];
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-card-border/50 bg-card-bg/70">
+      {/* Inputs: Temp + Elevation */}
+      <div className="border-b border-border-custom/15 px-5 py-4">
+        <div className="mb-3 flex items-center justify-between">
+          <span className="text-[12px] font-medium uppercase tracking-wider text-text-dim">Aerodrome Temp</span>
+          <span className="font-mono text-[15px] font-bold text-foreground">&minus;15 &deg;C</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[12px] font-medium uppercase tracking-wider text-text-dim">Aerodrome Elev</span>
+          <span className="font-mono text-[15px] font-bold text-foreground">2,000 ft</span>
+        </div>
+      </div>
+      {/* Fix rows */}
+      <div className="px-5 py-4 space-y-3">
+        {fixes.map((fix) => (
+          <div key={fix.label} className="flex items-end gap-3">
+            <div className="flex-1">
+              <span className="mb-1 block text-[12px] font-medium text-text-dim">{fix.label}</span>
+              <div className="rounded-xl border border-border-custom/30 bg-background/40 px-4 py-2.5">
+                <span className="font-mono text-[14px] text-foreground">{fix.input}</span>
+              </div>
+            </div>
+            <div className="rounded-xl border border-accent-cyan/30 bg-accent-cyan/[0.08] px-4 py-2.5">
+              <span className="font-mono text-[14px] font-bold text-accent-cyan">&rarr; {fix.result} ft</span>
             </div>
           </div>
         ))}
+      </div>
+      {/* Share PDF pill */}
+      <div className="flex items-center justify-center py-2">
+        <div className="inline-flex items-center gap-1.5 rounded-full border px-4 py-2"
+          style={{ backgroundColor: "rgba(0,212,255,0.1)", borderColor: "rgba(0,212,255,0.25)" }}>
+          <svg className="h-5 w-5 text-accent-cyan" viewBox="0 0 24 24" fill="none">
+            <path d="M9 6l3-3 3 3M12 3v12M5 10v9a1 1 0 001 1h12a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="text-[12px] text-accent-cyan">PDF</span>
+        </div>
       </div>
     </div>
   );
 }
 
 function DepartureMock() {
+  const rows = [
+    { label: "EOBT", value: "07:50Z", highlight: true },
+    { label: "TOBT", value: "07:45Z", highlight: false },
+    { label: "TSAT", value: "07:52Z", highlight: true },
+    { label: "CTOT", value: "08:25Z", highlight: false },
+    { label: "Stand", value: "F12", highlight: false },
+    { label: "Runway", value: "35L", highlight: true },
+    { label: "SID", value: "BAVMA 2A", highlight: false },
+  ];
+
   return (
-    <div className="rounded-2xl border border-card-border/50 bg-card-bg/70 p-7">
-      <div className="mb-5 flex items-center justify-between">
-        <span className="text-[15px] font-medium text-text-secondary">Departure Info</span>
-        <span className="font-mono text-[12px] text-accent-cyan">THY 1990</span>
+    <div className="overflow-hidden rounded-2xl border border-card-border/50 bg-card-bg/70">
+      <div className="flex items-center justify-between border-b border-accent-cyan/15 px-5 py-3.5">
+        <div>
+          <div className="font-mono text-[20px] font-bold text-foreground">THY 1990</div>
+          <div className="font-mono text-[14px] text-text-dim mt-0.5">TK1990</div>
+        </div>
+        <div className="text-right">
+          <div className="font-mono text-[20px] font-bold text-accent-cyan">LTFM → EGLL</div>
+          <div className="font-mono text-[14px] text-text-dim mt-0.5">B77W</div>
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        {[
-          { label: "Runway", value: "35L", color: "text-accent-cyan" },
-          { label: "SID", value: "BAVMA 2A", color: "text-accent-green" },
-          { label: "CTOT", value: "08:25Z", color: "text-accent-amber" },
-          { label: "Gate", value: "F12", color: "text-foreground" },
-        ].map((item) => (
-          <div key={item.label} className="rounded-xl border border-border-custom/25 bg-background/30 px-5 py-5">
-            <p className="mb-2 text-[12px] font-medium uppercase tracking-wider text-text-dim">{item.label}</p>
-            <p className={`font-mono text-2xl font-bold ${item.color}`}>{item.value}</p>
-          </div>
-        ))}
-      </div>
+      {rows.map((row) => (
+        <div
+          key={row.label}
+          className={`flex items-center justify-between border-b border-accent-cyan/[0.08] px-5 py-3 last:border-b-0 ${row.highlight ? "bg-accent-cyan/[0.04]" : ""}`}
+        >
+          <span className="text-[14px] font-medium text-text-dim">{row.label}</span>
+          <span className="font-mono text-[15px] font-bold text-foreground">{row.value}</span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -150,6 +412,7 @@ function DepartureMock() {
 const visuals: Record<string, () => React.ReactNode> = {
   suitability: SuitabilityMock,
   nat: NatMock,
+  coldtemp: ColdTempMock,
   departure: DepartureMock,
 };
 
@@ -276,7 +539,7 @@ export default function Home() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-green opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-green" />
                   </span>
-                  Pilot companion app
+                  Airline pilot companion app
                 </span>
               </div>
 
@@ -288,6 +551,18 @@ export default function Home() {
                   in your pocket
                 </span>
               </h1>
+
+              <div className="animate-fade-up delay-300 mt-6 inline-flex items-center gap-3 rounded-full border border-accent-cyan/20 bg-accent-cyan/[0.06] px-5 py-2.5">
+                <div className="flex items-center gap-1.5 text-accent-cyan">
+                  <Smartphone className="h-4 w-4" />
+                  <span className="text-[13px] font-semibold">iPhone</span>
+                </div>
+                <span className="text-[16px] font-bold text-accent-cyan/50">+</span>
+                <div className="flex items-center gap-1.5 text-accent-cyan">
+                  <Tablet className="h-4 w-4" />
+                  <span className="text-[13px] font-semibold">iPad</span>
+                </div>
+              </div>
 
               <p className="animate-fade-up delay-400 mt-8 max-w-[500px] text-[18px] leading-relaxed text-text-secondary">
                 Check weather suitability, calculate crew rest and slot times, cold temperature corrections, verify NAT routes, metric table and flight time calculator — all offline, from one app.
@@ -369,8 +644,8 @@ export default function Home() {
                 Every tool solves a real cockpit problem
               </h2>
               <p className="mt-6 text-[17px] leading-relaxed text-text-secondary">
-                Three flagship features powered by live aviation data, plus six
-                more calculators and references — all working offline.
+                Four flagship features powered by live aviation data, plus seven
+                more calculators and references — all working offline.*
               </p>
             </div>
           </ScrollReveal>
@@ -423,7 +698,7 @@ export default function Home() {
                 More Tools
               </p>
               <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold tracking-[-0.015em]">
-                Six more for the toolkit
+                Seven more for the toolkit
               </h2>
             </div>
           </ScrollReveal>
@@ -431,7 +706,12 @@ export default function Home() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {gridFeatures.map((feature, i) => (
               <ScrollReveal key={feature.tag} delay={i * 70}>
-                <div className="instrument-card rounded-2xl border border-card-border/50 bg-card-bg/50 p-8">
+                <div className="instrument-card relative rounded-2xl border border-card-border/50 bg-card-bg/50 p-8">
+                  {"comingSoon" in feature && feature.comingSoon && (
+                    <span className="absolute right-5 top-5 rounded-full border border-accent-amber/20 bg-accent-amber/10 px-3 py-1 text-[11px] font-medium text-accent-amber">
+                      Coming Soon
+                    </span>
+                  )}
                   <span className="mb-5 inline-block rounded-full border border-accent-cyan/15 bg-accent-cyan/5 px-3.5 py-1 font-mono text-[11px] font-medium uppercase tracking-widest text-accent-cyan">
                     {feature.tag}
                   </span>
@@ -488,6 +768,13 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ── FOOTNOTE ── */}
+      <div className="mx-auto max-w-[1400px] px-10 pb-12 lg:px-14">
+        <p className="text-[13px] leading-relaxed text-text-dim">
+          *Operational Suitability and Departure Assist require an internet connection for real-time weather and flight data.
+        </p>
+      </div>
     </main>
   );
 }

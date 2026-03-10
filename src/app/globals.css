@@ -140,6 +140,49 @@ header {
 .delay-1000 { animation-delay: 1s; }
 .delay-1200 { animation-delay: 1.2s; }
 
+/* 2-phase crossfade (8s cycle) */
+@keyframes crossfade-a {
+  0%, 42%  { opacity: 1; }
+  50%, 92% { opacity: 0; }
+  100%     { opacity: 1; }
+}
+@keyframes crossfade-b {
+  0%, 42%  { opacity: 0; }
+  50%, 92% { opacity: 1; }
+  100%     { opacity: 0; }
+}
+.animate-crossfade-a {
+  animation: crossfade-a 8s ease-in-out infinite;
+}
+.animate-crossfade-b {
+  animation: crossfade-b 8s ease-in-out infinite;
+}
+
+/* 3-phase crossfade (10s cycle) */
+@keyframes cf3-a {
+  0%, 20%  { opacity: 1; }
+  26%, 100% { opacity: 0; }
+}
+@keyframes cf3-b {
+  0%, 20%  { opacity: 0; }
+  26%, 48% { opacity: 1; }
+  54%, 100% { opacity: 0; }
+}
+@keyframes cf3-c {
+  0%, 48%  { opacity: 0; }
+  54%, 92% { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+.animate-cf3-a {
+  animation: cf3-a 10s ease-in-out infinite;
+}
+.animate-cf3-b {
+  animation: cf3-b 10s ease-in-out infinite;
+}
+.animate-cf3-c {
+  animation: cf3-c 10s ease-in-out infinite;
+}
+
 /* ── Instrument cards ── */
 .instrument-card {
   position: relative;
