@@ -226,29 +226,7 @@ export default function PrivacyPolicy() {
             </p>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
-              E) Camera / Photo Library (for local OCR of OFP screenshots)
-            </h3>
-            <p className="mb-2 text-sm">
-              Volo uses the device camera and/or photo library (via
-              expo-image-picker) only to let you select an OFP (Operational
-              Flight Plan) screenshot for OCR inside the operational suitability
-              feature.
-            </p>
-            <ul className="mb-4 list-none space-y-2 text-sm">
-              {[
-                "Images are processed locally on your device",
-                "Images are not uploaded",
-                "Images are not stored by Volo (beyond what your operating system may temporarily cache as part of normal device behavior)",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-cyan/60" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="mb-2 text-sm font-medium text-foreground">
-              F) Clipboard access
+              E) Clipboard access
             </h3>
             <p className="mb-2 text-sm">
               Volo may read clipboard content (via expo-clipboard) only to allow
@@ -267,7 +245,7 @@ export default function PrivacyPolicy() {
             </ul>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
-              G) Network/technical data (limited)
+              F) Network/technical data (limited)
             </h3>
             <p className="mb-2 text-sm">
               When the App connects to external services, those services may

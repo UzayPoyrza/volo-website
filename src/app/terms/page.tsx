@@ -301,11 +301,10 @@ export default function TermsOfService() {
           {/* 8. On-device features */}
           <section>
             <h2 className="mb-3 text-lg font-semibold text-foreground">
-              8. On-device features: camera, photos, clipboard, and PDF sharing
+              8. On-device features: clipboard and PDF sharing
             </h2>
             <ul className="mb-3 list-none space-y-2.5 text-sm">
               {[
-                "OFP OCR: If you choose to use OCR, images are processed locally and not uploaded by Volo.",
                 "Clipboard: Clipboard reading occurs to support paste actions; clipboard data is not stored or transmitted by Volo.",
                 "PDF export/sharing: PDFs are generated on-device; if you share them, you control where they go.",
               ].map((item) => (
@@ -317,7 +316,7 @@ export default function TermsOfService() {
             </ul>
             <p className="text-sm">
               You are responsible for ensuring that any content you import or
-              share (including OFP screenshots and exported PDFs) is handled in
+              share (including exported PDFs) is handled in
               accordance with your employer&apos;s policies, applicable laws, and
               confidentiality requirements.
             </p>

@@ -460,56 +460,6 @@ function RadarSweep() {
 }
 
 /* ── MFD ── */
-function MfdDisplay() {
-  return (
-    <div className="rounded-2xl border border-card-border/50 bg-card-bg/60 p-6 backdrop-blur-sm">
-      <div className="mb-5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="animate-blink h-2 w-2 rounded-full bg-accent-green" />
-          <span className="font-mono text-[11px] uppercase tracking-widest text-accent-green">Online</span>
-        </div>
-        <span className="font-mono text-[11px] text-text-dim">v1.0.0</span>
-      </div>
-      <div className="mb-4 rounded-xl border border-border-custom/25 bg-background/40 p-5">
-        <div className="mb-3 flex items-center justify-between">
-          <span className="text-[12px] font-medium uppercase tracking-wider text-text-dim">Active route</span>
-          <span className="font-mono text-[12px] text-accent-cyan">THY 1990</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="text-center">
-            <p className="text-2xl font-bold">LTFM</p>
-            <p className="text-[12px] text-text-dim">Istanbul</p>
-          </div>
-          <div className="flex flex-1 items-center px-5">
-            <div className="h-px flex-1 bg-gradient-to-r from-accent-cyan/30 to-transparent" />
-            <div className="mx-3 flex h-8 w-8 items-center justify-center rounded-full border border-accent-cyan/20 bg-accent-cyan/5">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-accent-cyan">
-                <path d="M2 7h10m0 0L8.5 3.5M12 7L8.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <div className="h-px flex-1 bg-gradient-to-l from-accent-green/30 to-transparent" />
-          </div>
-          <div className="text-center">
-            <p className="text-2xl font-bold">EGLL</p>
-            <p className="text-[12px] text-text-dim">London</p>
-          </div>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-2.5">
-        {[
-          { label: "OPS SUIT", value: "OK", color: "text-accent-green" },
-          { label: "REST", value: "12:40", color: "text-accent-cyan" },
-          { label: "CTOT", value: "08:25Z", color: "text-accent-amber" },
-        ].map((item) => (
-          <div key={item.label} className="rounded-lg border border-border-custom/20 bg-background/25 px-3 py-3 text-center">
-            <p className="mb-1.5 font-mono text-[10px] uppercase tracking-widest text-text-dim">{item.label}</p>
-            <p className={`font-mono text-[15px] font-bold ${item.color}`}>{item.value}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 /* ══════════════════════ PAGE ══════════════════════ */
 export default function Home() {
@@ -529,65 +479,65 @@ export default function Home() {
           <RadarSweep />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
-          <div className="grid items-center gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
-            {/* Left — Copy */}
-            <div>
-              <div className="animate-fade-up">
-                <span className="inline-flex items-center gap-2.5 rounded-full border border-border-custom/30 bg-card-bg/50 px-5 py-2.5 text-[14px] text-text-secondary backdrop-blur-sm">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-green opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-green" />
-                  </span>
-                  Airline pilot companion app
-                </span>
-              </div>
+        <div className="relative z-10 mx-auto w-full max-w-[900px] text-center">
+          <div className="animate-fade-up">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-border-custom/30 bg-card-bg/50 px-5 py-2.5 text-[14px] text-text-secondary backdrop-blur-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-green opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-green" />
+              </span>
+              Airline pilot companion app
+            </span>
+          </div>
 
-              <h1 className="animate-fade-up delay-200 mt-10 text-[clamp(3rem,5.5vw,5rem)] font-bold leading-[1.1] tracking-[-0.025em]">
-                Your flight ops
-                <br />
-                toolkit,{" "}
-                <span className="bg-gradient-to-r from-accent-cyan to-accent-green bg-clip-text text-transparent">
-                  in your pocket
-                </span>
-              </h1>
+          <h1 className="animate-fade-up delay-200 mt-10 text-[clamp(3rem,6vw,5.5rem)] font-bold leading-[1.1] tracking-[-0.025em]">
+            Your flight ops
+            <br />
+            toolkit,{" "}
+            <span className="bg-gradient-to-r from-accent-cyan to-accent-green bg-clip-text text-transparent">
+              in your pocket
+            </span>
+          </h1>
 
-              <div className="animate-fade-up delay-300 mt-6 inline-flex items-center gap-3 rounded-full border border-accent-cyan/20 bg-accent-cyan/[0.06] px-5 py-2.5">
-                <div className="flex items-center gap-1.5 text-accent-cyan">
-                  <Smartphone className="h-4 w-4" />
-                  <span className="text-[13px] font-semibold">iPhone</span>
-                </div>
-                <span className="text-[16px] font-bold text-accent-cyan/50">+</span>
-                <div className="flex items-center gap-1.5 text-accent-cyan">
-                  <Tablet className="h-4 w-4" />
-                  <span className="text-[13px] font-semibold">iPad</span>
-                </div>
-              </div>
-
-              <p className="animate-fade-up delay-400 mt-8 max-w-[500px] text-[18px] leading-relaxed text-text-secondary">
-                Check weather suitability, calculate crew rest and slot times, cold temperature corrections, verify NAT routes, metric table and flight time calculator — all offline, from one app.
-              </p>
-
-              <div className="animate-fade-up delay-500 mt-10 flex flex-wrap items-center gap-5">
-                <a
-                  href="#features"
-                  className="inline-flex items-center gap-2.5 rounded-xl bg-accent-cyan px-8 py-4 text-[15px] font-semibold text-background transition-all hover:shadow-[0_0_32px_rgba(0,212,255,0.18)]"
-                >
-                  Explore Features
-                  <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-                    <path d="M2 7h10m0 0L8.5 3.5M12 7L8.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-                <div className="flex items-center gap-2.5 rounded-xl border border-border-custom/40 px-6 py-4">
-                  <span className="h-2 w-2 rounded-full bg-accent-amber" />
-                  <span className="text-[14px] text-text-secondary">App Store — Soon</span>
-                </div>
-              </div>
+          <div className="animate-fade-up delay-300 mt-6 inline-flex items-center gap-3 rounded-full border border-accent-cyan/20 bg-accent-cyan/[0.06] px-5 py-2.5">
+            <div className="flex items-center gap-1.5 text-accent-cyan">
+              <Smartphone className="h-4 w-4" />
+              <span className="text-[13px] font-semibold">iPhone</span>
             </div>
+            <span className="text-[16px] font-bold text-accent-cyan/50">+</span>
+            <div className="flex items-center gap-1.5 text-accent-cyan">
+              <Tablet className="h-4 w-4" />
+              <span className="text-[13px] font-semibold">iPad</span>
+            </div>
+            <span className="text-text-dim">|</span>
+            <div className="flex items-center gap-1.5 text-text-dim">
+              <Smartphone className="h-4 w-4" />
+              <span className="text-[13px] font-medium">Android</span>
+              <span className="text-[10px] font-medium text-accent-amber">SOON</span>
+            </div>
+          </div>
 
-            {/* Right — MFD */}
-            <div className="animate-fade-up delay-600 hidden lg:block">
-              <MfdDisplay />
+          <p className="animate-fade-up delay-400 mx-auto mt-8 max-w-[600px] text-[18px] leading-relaxed text-text-secondary">
+            Check weather suitability, calculate crew rest and slot times, cold temperature corrections, verify NAT routes, metric table and flight time calculator — all offline, from one app.
+          </p>
+
+          <div className="animate-fade-up delay-500 mt-10 flex flex-wrap items-center justify-center gap-5">
+            <a
+              href="#features"
+              className="inline-flex items-center gap-2.5 rounded-xl bg-accent-cyan px-8 py-4 text-[15px] font-semibold text-background transition-all hover:shadow-[0_0_32px_rgba(0,212,255,0.18)]"
+            >
+              Explore Features
+              <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10m0 0L8.5 3.5M12 7L8.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <div className="flex items-center gap-2.5 rounded-xl border border-border-custom/40 px-6 py-4">
+              <span className="h-2 w-2 rounded-full bg-accent-amber" />
+              <span className="text-[14px] text-text-secondary">App Store — Soon</span>
+            </div>
+            <div className="flex items-center gap-2.5 rounded-xl border border-border-custom/40 px-6 py-4">
+              <span className="h-2 w-2 rounded-full bg-accent-amber" />
+              <span className="text-[14px] text-text-secondary">Google Play — Soon</span>
             </div>
           </div>
         </div>
@@ -763,7 +713,7 @@ export default function Home() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-amber opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-amber" />
               </span>
-              <span className="text-[15px] text-text-secondary">Coming soon to the App Store</span>
+              <span className="text-[15px] text-text-secondary">Coming soon to the App Store & Google Play</span>
             </div>
           </ScrollReveal>
         </div>
