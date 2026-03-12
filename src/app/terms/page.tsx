@@ -11,7 +11,7 @@ export default function TermsOfService() {
       {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-accent-cyan/[0.02] blur-[120px]" />
 
-      <div className="relative z-10 mx-auto max-w-[720px] px-8">
+      <div className="relative z-10 mx-auto w-full max-w-[900px] px-8">
         {/* Header */}
         <div className="mb-14">
           <p className="mb-4 text-[13px] font-medium uppercase tracking-[0.15em] text-accent-cyan">
