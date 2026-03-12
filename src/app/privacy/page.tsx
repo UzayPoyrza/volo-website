@@ -173,18 +173,6 @@ export default function PrivacyPolicy() {
                 </li>
               ))}
             </ul>
-            <p className="mb-2 text-sm">Plans (as described):</p>
-            <ul className="mb-2 list-none space-y-2 text-sm">
-              {[
-                "Monthly: $5.00/month",
-                "Yearly: $36.00/year",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-cyan/60" />
-                  {item}
-                </li>
-              ))}
-            </ul>
             <p className="mb-4 text-sm">
               Subscriptions auto-renew unless cancelled.
             </p>
