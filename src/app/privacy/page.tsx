@@ -371,7 +371,7 @@ export default function PrivacyPolicy() {
               ].map((svc) => (
                 <div
                   key={svc.name}
-                  className="flex items-center justify-between rounded-lg border border-border-custom/30 bg-background/50 px-4 py-2.5"
+                  className="flex flex-col gap-1 rounded-lg border border-border-custom/30 bg-background/50 px-4 py-2.5 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div>
                     <span className="text-sm font-medium text-foreground">
