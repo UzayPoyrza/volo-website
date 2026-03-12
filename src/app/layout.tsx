@@ -71,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased grain overflow-x-hidden`}
+        className={`${dmSans.variable} ${jetbrainsMono.variable} font-sans antialiased grain`}
       >
         <Header />
         {children}
