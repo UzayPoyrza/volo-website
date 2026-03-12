@@ -184,21 +184,7 @@ export default function TermsOfService() {
             </h2>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
-              A) Plans and pricing (iOS)
-            </h3>
-            <p className="mb-4 text-sm">
-              Volo offers a free tier and optional paid subscription plans
-              (&quot;Volo Pro&quot;) available via Apple StoreKit. Volo Pro may
-              include monthly, yearly, or other billing options, and may offer
-              introductory pricing, promotional offers, or free trial periods at
-              our discretion. Current pricing, plan details, and any active
-              offers are displayed within the App and on the applicable App Store
-              listing at the time of purchase. Prices may vary by region and may
-              include applicable taxes as determined by Apple.
-            </p>
-
-            <h3 className="mb-2 text-sm font-medium text-foreground">
-              B) Auto-renewal
+              A) Auto-renewal
             </h3>
             <p className="mb-4 text-sm">
               Subscriptions auto-renew unless cancelled at least 24 hours before
@@ -207,7 +193,7 @@ export default function TermsOfService() {
             </p>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
-              C) Payment and management
+              B) Payment and management
             </h3>
             <ul className="mb-4 list-none space-y-2 text-sm">
               {[
@@ -223,7 +209,7 @@ export default function TermsOfService() {
             </ul>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
-              D) Refunds
+              C) Refunds
             </h3>
             <p className="mb-4 text-sm">
               Refund requests are handled by Apple under Apple&apos;s policies.
@@ -231,7 +217,7 @@ export default function TermsOfService() {
             </p>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
-              E) Changes
+              D) Changes
             </h3>
             <p className="mb-2 text-sm">
               We reserve the right to modify subscription offerings, features,
