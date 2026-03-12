@@ -97,12 +97,10 @@ export default function PrivacyPolicy() {
                 "CTOT departure planner",
                 "Flight times calculator",
                 "IMP cargo code reference",
-                "Aircraft SIM registration code lookup",
                 "Meter-to-feet altitude conversion table",
                 "NAT HLA route verification (great-circle calculations)",
                 "Operational suitability weather checker (fetches live TAFs and applies ICAO weather minima rules)",
                 "Departure assist (fetches runway/SID/departure info)",
-                "Bilingual cabin briefing announcement scripts (English/Turkish)",
                 "PDF export and sharing for results",
                 "Light/dark theme",
               ].map((item) => (
