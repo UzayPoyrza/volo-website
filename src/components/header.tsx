@@ -66,6 +66,7 @@ export function Header() {
           className="flex h-10 w-10 items-center justify-center rounded-lg border border-border-custom/40 md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none" className="text-text-secondary">
             {mobileOpen ? (

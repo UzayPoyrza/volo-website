@@ -25,7 +25,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex items-center justify-between border-t border-border-custom/15 pt-8">
-          <p className="text-[14px] text-text-dim">&copy; {new Date().getFullYear()} Volo</p>
+          <p className="text-[14px] text-text-dim">&copy; {new Date().getFullYear()} LaunchSpace LLC</p>
           <p className="text-[14px] text-text-dim">IST / LTFM</p>
         </div>
       </div>

@@ -23,19 +23,19 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Volo — Pilot Companion",
   description:
-    "Aviation assistant for Turkish Airlines pilots. Calculators, weather suitability, crew rest planning, and bilingual cabin briefings — all in one app.",
+    "Aviation assistant for airline pilots. Calculators, weather suitability, crew rest planning, and cabin briefings — all in one app.",
   metadataBase: new URL("https://voloapp.co"),
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: "/apple-icon.png",
+    apple: "/icon-192x192.png",
   },
   openGraph: {
     title: "Volo — Pilot Companion",
     description:
-      "Aviation assistant for Turkish Airlines pilots. Calculators, weather suitability, crew rest planning, and bilingual cabin briefings — all in one app.",
+      "Aviation assistant for airline pilots. Calculators, weather suitability, crew rest planning, and cabin briefings — all in one app.",
     url: "https://voloapp.co",
     siteName: "Volo",
     images: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Volo — Pilot Companion",
     description:
-      "Aviation assistant for Turkish Airlines pilots. Calculators, weather suitability, crew rest planning, and bilingual cabin briefings.",
+      "Aviation assistant for airline pilots. Calculators, weather suitability, crew rest planning, and cabin briefings.",
     images: ["/og-image.png"],
   },
   other: {

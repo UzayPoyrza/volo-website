@@ -648,7 +648,7 @@ export default function Home() {
                 More Tools
               </p>
               <h2 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-bold tracking-[-0.015em]">
-                Seven more for the toolkit
+                And even more tools
               </h2>
             </div>
           </ScrollReveal>
