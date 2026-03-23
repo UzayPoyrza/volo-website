@@ -594,7 +594,7 @@ export default function Home() {
                 Every tool solves a real cockpit problem
               </h2>
               <p className="mt-6 text-[17px] leading-relaxed text-text-secondary">
-                Four flagship features powered by live aviation data, plus seven
+                Four flagship features powered by live aviation data, plus six
                 more calculators and references — all working offline.*
               </p>
             </div>
