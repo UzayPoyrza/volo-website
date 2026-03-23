@@ -21,7 +21,7 @@ export default function PrivacyPolicy() {
             Privacy Policy
           </h1>
           <p className="mt-4 text-[13px] text-text-dim">
-            Last updated: February 24, 2026
+            Last updated: March 23, 2026
           </p>
         </div>
 
@@ -205,10 +205,15 @@ export default function PrivacyPolicy() {
                 </li>
               ))}
             </ul>
-            <p className="mb-4 text-sm">
+            <p className="mb-2 text-sm">
               On mobile, this uses local storage (e.g., AsyncStorage). On the
               Web, it may use browser storage (e.g., localStorage/sessionStorage
               and/or cookies) to maintain preferences and session state.
+            </p>
+            <p className="mb-4 text-sm">
+              Volo does not use tracking cookies or any cookies for advertising
+              purposes. Any cookies used on the Web version are strictly
+              necessary for functionality (e.g., maintaining your session).
             </p>
 
             <h3 className="mb-2 text-sm font-medium text-foreground">
@@ -255,6 +260,11 @@ export default function PrivacyPolicy() {
               the third-party data sources you query) may exist as part of their
               normal operations.
             </p>
+            <p className="mt-2 text-sm">
+              Volo does not track you across other companies&apos; apps or
+              websites. No App Tracking Transparency (ATT) prompt is required
+              because no cross-app or cross-site tracking occurs.
+            </p>
           </section>
 
           {/* 4. What we do not collect */}
@@ -296,6 +306,27 @@ export default function PrivacyPolicy() {
                 "Provide core app functionality and user preferences (theme/onboarding)",
                 "Provide customer support (if you contact us)",
                 "Maintain security, prevent abuse, and comply with legal obligations where applicable",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-cyan/60" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="mt-4 mb-2 text-sm font-medium text-foreground">
+              Legal basis for processing (EEA/UK users)
+            </h3>
+            <p className="mb-2 text-sm">
+              If you are located in the European Economic Area or the United
+              Kingdom, we rely on the following legal bases:
+            </p>
+            <ul className="list-none space-y-2 text-sm">
+              {[
+                "Contract performance — authentication, profile storage, and subscription management are necessary to provide the service you signed up for.",
+                "Legitimate interests — maintaining security, preventing abuse, and improving the App, where those interests are not overridden by your rights.",
+                "Legal obligation — where we are required to retain or disclose data under applicable law.",
+                "Consent — where required (e.g., optional communications), which you may withdraw at any time.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-cyan/60" />
@@ -361,7 +392,7 @@ export default function PrivacyPolicy() {
                   name: "FlightAware",
                   domain: "flightaware.com",
                   purpose:
-                    "HTML retrieval/scraping fallback for non-LTFM departure info",
+                        "HTML retrieval for non-LTFM departure info",
                 },
                 {
                   name: "Supabase",
@@ -452,14 +483,15 @@ export default function PrivacyPolicy() {
               is active or as needed to provide the service.
             </p>
             <p className="mb-2 text-sm">
-              If you request account deletion, we will delete or anonymize
-              account/profile data from our systems, subject to:
+              If you request account deletion (see &quot;Account deletion&quot;
+              below), we will delete or anonymize account/profile data from our
+              systems within 30 days, subject to:
             </p>
             <ul className="mb-2 list-none space-y-2 text-sm">
               {[
-                "Legal obligations",
+                "Legal obligations that require longer retention",
                 "Security/fraud prevention",
-                "Limited backups retained for a short period (where applicable)",
+                "Encrypted backups that may persist for up to 90 days before automatic rotation",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-cyan/60" />
@@ -470,6 +502,26 @@ export default function PrivacyPolicy() {
             <p className="text-sm">
               Local preferences (theme/onboarding) remain on your device/browser
               until you clear app data or uninstall/clear browser storage.
+            </p>
+
+            <h3 className="mt-4 mb-2 text-sm font-medium text-foreground">
+              Account deletion
+            </h3>
+            <p className="text-sm">
+              You can delete your account directly from the App by navigating to
+              your profile/settings screen and selecting &quot;Delete
+              Account.&quot; You may also request deletion by emailing us at{" "}
+              <a
+                href="mailto:contact@launchspace.org"
+                className="font-mono text-accent-cyan hover:underline"
+              >
+                contact@launchspace.org
+              </a>
+              . Upon deletion, your Supabase profile data, subscription
+              metadata, and any associated records will be permanently removed
+              within 30 days. Deleting your account does not automatically
+              cancel an active Apple subscription — you must cancel it
+              separately through your Apple account settings.
             </p>
           </section>
 
@@ -490,11 +542,15 @@ export default function PrivacyPolicy() {
             <h2 className="mb-3 text-lg font-semibold text-foreground">
               11. International transfers
             </h2>
-            <p className="text-sm">
+            <p className="mb-2 text-sm">
               Your information may be processed in countries other than your own
-              depending on where service providers (such as Supabase) operate.
+              depending on where service providers operate. Supabase
+              infrastructure used by Volo is hosted in the United States.
+            </p>
+            <p className="text-sm">
               When required, we rely on appropriate safeguards for cross-border
-              data transfers.
+              data transfers, such as Standard Contractual Clauses approved by
+              the European Commission.
             </p>
           </section>
 
@@ -538,14 +594,38 @@ export default function PrivacyPolicy() {
             <p className="text-sm">
               Volo is intended for airline pilots and aviation professionals and
               is not directed to children. We do not knowingly collect personal
-              information from children.
+              information from children under 13 (or under 16 where the GDPR
+              applies). If we learn that we have inadvertently collected personal
+              information from a child under the applicable age threshold, we
+              will promptly delete that information. If you believe a child has
+              provided us with personal data, please contact us at{" "}
+              <a
+                href="mailto:contact@launchspace.org"
+                className="font-mono text-accent-cyan hover:underline"
+              >
+                contact@launchspace.org
+              </a>
+              .
             </p>
           </section>
 
-          {/* 14. Changes to this policy */}
+          {/* 14. App Store privacy label */}
           <section>
             <h2 className="mb-3 text-lg font-semibold text-foreground">
-              14. Changes to this policy
+              14. App Store privacy label
+            </h2>
+            <p className="text-sm">
+              Our App Store privacy nutrition label accurately reflects the data
+              practices described in this Privacy Policy. If you notice any
+              discrepancy between the label and this policy, this Privacy Policy
+              takes precedence and we will update the label accordingly.
+            </p>
+          </section>
+
+          {/* 15. Changes to this policy */}
+          <section>
+            <h2 className="mb-3 text-lg font-semibold text-foreground">
+              15. Changes to this policy
             </h2>
             <p className="text-sm">
               We may update this Privacy Policy from time to time. We will
@@ -554,10 +634,10 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          {/* 15. Contact Us */}
+          {/* 16. Contact Us */}
           <section>
             <h2 className="mb-3 text-lg font-semibold text-foreground">
-              15. Contact Us
+              16. Contact Us
             </h2>
             <p className="mb-2 text-sm font-medium text-foreground">
               LaunchSpace LLC

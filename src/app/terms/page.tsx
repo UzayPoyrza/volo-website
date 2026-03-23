@@ -21,7 +21,7 @@ export default function TermsOfService() {
             Terms of Service
           </h1>
           <p className="mt-4 text-[13px] text-text-dim">
-            Last updated: February 24, 2026
+            Last updated: March 23, 2026
           </p>
         </div>
 
@@ -481,10 +481,109 @@ export default function TermsOfService() {
             </p>
           </section>
 
-          {/* 17. Contact */}
+          {/* 17. Apple-specific terms */}
           <section>
             <h2 className="mb-3 text-lg font-semibold text-foreground">
-              17. Contact
+              17. Apple-specific terms
+            </h2>
+            <p className="mb-3 text-sm">
+              The following terms apply to your use of Volo obtained through the
+              Apple App Store. These terms are required by Apple and supplement
+              the rest of these Terms.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              A) Acknowledgement
+            </h3>
+            <p className="mb-4 text-sm">
+              These Terms are between you and LaunchSpace LLC only, and not with
+              Apple Inc. (&quot;Apple&quot;). LaunchSpace LLC, not Apple, is
+              solely responsible for the App and its content.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              B) Scope of license
+            </h3>
+            <p className="mb-4 text-sm">
+              The license granted to you for the App is limited to a
+              non-transferable license to use the App on any Apple-branded
+              device that you own or control, as permitted by the Usage Rules
+              set forth in the Apple Media Services Terms and Conditions.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              C) Maintenance and support
+            </h3>
+            <p className="mb-4 text-sm">
+              LaunchSpace LLC is solely responsible for providing any
+              maintenance and support services with respect to the App, as
+              specified in these Terms or as required under applicable law.
+              Apple has no obligation whatsoever to furnish any maintenance and
+              support services with respect to the App.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              D) Warranty
+            </h3>
+            <p className="mb-4 text-sm">
+              LaunchSpace LLC is solely responsible for any product warranties,
+              whether express or implied by law, to the extent not effectively
+              disclaimed. In the event of any failure of the App to conform to
+              any applicable warranty, you may notify Apple, and Apple will
+              refund the purchase price (if any) for the App. To the maximum
+              extent permitted by applicable law, Apple will have no other
+              warranty obligation whatsoever with respect to the App.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              E) Product claims
+            </h3>
+            <p className="mb-4 text-sm">
+              LaunchSpace LLC, not Apple, is responsible for addressing any
+              claims relating to the App or your possession and/or use of the
+              App, including but not limited to: (i) product liability claims;
+              (ii) any claim that the App fails to conform to any applicable
+              legal or regulatory requirement; and (iii) claims arising under
+              consumer protection, privacy, or similar legislation.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              F) Intellectual property claims
+            </h3>
+            <p className="mb-4 text-sm">
+              In the event of any third-party claim that the App or your
+              possession and use of the App infringes that third party&apos;s
+              intellectual property rights, LaunchSpace LLC, not Apple, will be
+              solely responsible for the investigation, defense, settlement, and
+              discharge of any such intellectual property infringement claim.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              G) Legal compliance
+            </h3>
+            <p className="mb-4 text-sm">
+              You represent and warrant that (i) you are not located in a
+              country that is subject to a U.S. Government embargo, or that has
+              been designated by the U.S. Government as a &quot;terrorist
+              supporting&quot; country; and (ii) you are not listed on any U.S.
+              Government list of prohibited or restricted parties.
+            </p>
+
+            <h3 className="mb-2 text-sm font-medium text-foreground">
+              H) Third-party beneficiary
+            </h3>
+            <p className="text-sm">
+              Apple and its subsidiaries are third-party beneficiaries of these
+              Terms. Upon your acceptance of these Terms, Apple will have the
+              right (and will be deemed to have accepted the right) to enforce
+              these Terms against you as a third-party beneficiary thereof.
+            </p>
+          </section>
+
+          {/* 18. Contact */}
+          <section>
+            <h2 className="mb-3 text-lg font-semibold text-foreground">
+              18. Contact
             </h2>
             <p className="mb-2 text-sm font-medium text-foreground">
               LaunchSpace LLC
