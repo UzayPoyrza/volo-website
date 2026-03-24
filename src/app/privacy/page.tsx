@@ -389,11 +389,6 @@ export default function PrivacyPolicy() {
                   purpose: "Istanbul Airport (LTFM) departure info",
                 },
                 {
-                  name: "Public aviation data sources",
-                  domain: "various",
-                  purpose: "Departure and flight information for non-LTFM airports",
-                },
-                {
                   name: "Supabase",
                   domain: "supabase.co",
                   purpose: "Authentication/profile/subscription syncing",
@@ -416,9 +411,11 @@ export default function PrivacyPolicy() {
               ))}
             </div>
             <p className="mt-3 text-sm">
-              <strong className="text-foreground">Important:</strong> These
-              third-party sources may change, be unavailable, rate-limit
-              requests, or provide incomplete/incorrect information.
+              <strong className="text-foreground">Important:</strong> Volo may
+              also query other publicly available aviation data sources for
+              departure and flight information. These third-party sources may
+              change, be unavailable, rate-limit requests, or provide
+              incomplete/incorrect information.
             </p>
           </section>
 
