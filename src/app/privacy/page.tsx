@@ -389,10 +389,9 @@ export default function PrivacyPolicy() {
                   purpose: "Istanbul Airport (LTFM) departure info",
                 },
                 {
-                  name: "FlightAware",
-                  domain: "flightaware.com",
-                  purpose:
-                        "HTML retrieval for non-LTFM departure info",
+                  name: "Public aviation data sources",
+                  domain: "various",
+                  purpose: "Departure and flight information for non-LTFM airports",
                 },
                 {
                   name: "Supabase",
